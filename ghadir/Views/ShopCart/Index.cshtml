@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ghadir.Models.ShopCartViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    int row = 1;
+}
+
+<h2>سبد خرید شما</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th class="text-right">#</th>
+        <th class="text-right">تصویر</th>
+        <th class="text-right">کالا</th>
+        <th class="text-right">تعداد</th>
+        <th class="text-right">قیمت</th>
+        <th class="text-right">جمع</th>
+        <th class="text-right">دستورات</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-right">@row</td>
+            <td class="text-right">
+                <img class="thumbnail" style="max-width: 120px" src="/ProductImages/@item.ImageName" />
+            </td>
+            <td class="text-right">@item.Title</td>
+            <td class="text-right">@item.Count</td>
+            <td class="text-right">@item.Price</td>
+            <td class="text-right">@item.Sum</td>
+            <td class="text-right">
+                <a class="btn btn-danger btn-xs" href="/ShopCart/RemoveFromCart/@item.ProductID">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </td>
+        </tr>
+
+        row++;
+    }
+    <tr>
+        <td colspan="3" class="text-right">
+            جمع تعداد :
+        </td>
+        <td>
+            @Model.Sum(p => p.Count)
+        </td>
+        <td class="text-right">
+            جمع فاکتور :
+        </td>
+        <td colspan="2" class="text-center">
+            <p class="text-white">@Model.Sum(p => p.Sum).ToString("#,0 تومان")</p>
+        </td>
+    </tr>
+</table>
+
