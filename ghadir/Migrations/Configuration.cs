@@ -55,6 +55,22 @@
 
                     context.SaveChanges();
                 }
+                if (!context.Admins.Any())
+                {
+                    context.Admins.Add(new Admin()
+                    {
+                        UserName = "mohammadst@yahoo.com",
+                        Password = 123456789
+                    });
+
+                    context.Admins.Add(new Admin()
+                    {
+                        UserName = "alist@yahoo.com",
+                        Password = 123456789
+                    });
+
+                    context.SaveChanges();
+                }
             }
         }
     }

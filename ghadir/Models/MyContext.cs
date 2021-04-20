@@ -9,5 +9,6 @@ namespace ghadir.Models
     public class MyContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
+        public DbSet<Admin> Admins { get; set; }
     }
 }

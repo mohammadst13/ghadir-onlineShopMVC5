@@ -13,6 +13,7 @@ namespace ghadir.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            ViewBag.isHome = true;
             return View(db.Products.ToList());
         }
     }

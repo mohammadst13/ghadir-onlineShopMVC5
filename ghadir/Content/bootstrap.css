@@ -4071,6 +4071,19 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
         border-radius: 5px;
         left: 2px
     }
+.li-custom3 {
+    background-color: #4f4f4f;
+    border-radius: 5px;
+    left: 2px
+}
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.active-c {
+    float: none !important;
+    text-align: center !important;
+}
 
 .renderBodyCustom {
     padding-top: 40px;
