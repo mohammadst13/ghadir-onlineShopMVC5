@@ -127,9 +127,21 @@ namespace ghadir.Controllers
             }
             base.Dispose(disposing);
         }
-
+        [HttpGet]
         public ActionResult Crud()
         {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Crud(Product product)
+        {
+            if(ModelState.IsValid)
+            {
+                db.Products.Add(product);
+                db.SaveChanges();
+                return RedirectToAction("Index","Home",null);
+            }
+            
             return View();
         }
     }
