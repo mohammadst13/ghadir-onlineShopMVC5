@@ -112,14 +112,14 @@ namespace ghadir.Controllers
         }
 
 
-        public ActionResult Logout() // متد خروج کاربر از حساب کاربریش
+        public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
 
             return RedirectToAction("Index", "Home");
         }
 
-        protected override void Dispose(bool disposing) //برای بسته شدن کانکتشن استرینگ حتما باید آخر هر کنترلر باید این متد را قرار دهید
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

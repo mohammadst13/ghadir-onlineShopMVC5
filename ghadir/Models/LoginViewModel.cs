@@ -18,6 +18,6 @@ namespace ghadir.Models
         public string Password { get; set; }
 
         [Display(Name = " به یاد داشته باش")]
-        public bool RememberMe { get; set; } // برای به خاطر سپردن نام کاربری و کلمه عبور کاربر
+        public bool RememberMe { get; set; }
     }
 }

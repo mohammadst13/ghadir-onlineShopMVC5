@@ -15,6 +15,6 @@ namespace ghadir.Models
         public string Password { get; set; }
 
         [Compare("Password", ErrorMessage = "کلمه عبور وارد شده یکسان نیمباشد")]
-        public string RePassword { get; set; } // این پراپرتی برای اعتبار سنجی میباشد
+        public string RePassword { get; set; }
     }
 }

@@ -6869,4 +6869,10 @@ button.close {
     display: none !important;
   }
 }
+.margin-bottom {
+    margin-bottom: 75px;
+}
+.pr-32 {
+    padding-right: 32px
+}
 /*# sourceMappingURL=bootstrap.css.map */

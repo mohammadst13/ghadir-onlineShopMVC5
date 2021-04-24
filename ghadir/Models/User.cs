@@ -14,9 +14,8 @@ namespace ghadir.Models
         public string Password { get; set; }
         public string PhoneNumber { get; set; }
 
-        //برای کد فرست
-        // هر یوزر یک نقش خواهد داشت
-        public int RoleId { get; set; } // نیازی به پراپرتی نیست اما توصیه میشود که تعریف کنید،کلید خارجی پراپرتی رول
+
+        public int RoleId { get; set; }
         public virtual Role Role { get; set; }
     }
 }
