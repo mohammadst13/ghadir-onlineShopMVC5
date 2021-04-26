@@ -2,67 +2,149 @@
 
 @{
     ViewBag.Title = "Index";
-    int row = 1;
+    //int row = 1;
 }
 
-<div class="margin-bottom">
 
-    <h2 >سبد خرید شما</h2>
+<div id="grid"></div>
 
-    <table class="table table-bordered " id="grid">
-        <tr>
-            <th class="text-right">#</th>
-            <th class="text-right">تصویر</th>
-            <th class="text-right">کالا</th>
-            <th class="text-right">تعداد</th>
-            <th class="text-right">قیمت</th>
-            <th class="text-right">جمع</th>
-            <th class="text-right">دستورات</th>
-        </tr>
+<script type="text/javascript">
+    $(function () {
+        var productsDataSource = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: "ShopCart/GetProducts",
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    type: 'GET'
+                },
+                parameterMap: function (options) {
+                    return kendo.stringify(options);
+                }
+            },
+            schema: {
+                "ProductID": { type: "number" },
+                "Title": { type: "string" },
+                "Count": { type: "number" },
+                "Price": { type: "number" },
+                "Sum": { type: "number" },
+                "ImageName": { type: "string" }
 
-        @foreach (var item in Model)
-        {
+            },
+            error: function (e) {
+                alert(e.errorThrown);
+            },
+            pageSize: 10,
+            sort: { field: "Id", dir: "desc" },
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: true
+        });
+
+        $("#grid").kendoGrid({
+            dataSource: productsDataSource,
+            autoBind: true,
+            scrollable: false,
+            pageable: true,
+            sortable: true,
+            filterable: true,
+            reorderable: true,
+            columnMenu: true,
+            columns: [
+                { field: "ProductID", title: "شماره", width: "50px" },
+                { field: "Title", title: "نام محصول", width: "150px" },
+                { field: "Count", title: "تعداد" },
+                { field: "Price", title: "قیمت واحد", format: "{0:c}" },
+                { field: "Sum", title: "قیمت کل", format: "{0:c}" },
+                { field: "ImageName", title: "نام عکس", template: '<img class="thumbnail" style="max-width: 120px" src="/ProductImages/#=ImageName#" />' }
+            ]
+        });
+    });
+</script>
+
+<style>
+    .k-link {
+        margin-right: 18px;
+        text-align: right;
+    }
+
+    #grid {
+        margin-bottom: 45px
+    }
+</style>
+
+
+@*<div class="margin-bottom">
+
+        <h2 >سبد خرید شما</h2>
+
+        <table class="table table-bordered " id="grid">
             <tr>
-                <td class="text-right">@row</td>
-                <td class="text-right">
-                    <img class="thumbnail" style="max-width: 120px" src="/ProductImages/@item.ImageName" />
-                </td>
-                <td class="text-right">@item.Title</td>
-                <td class="text-right">@item.Count</td>
-                <td class="text-right">@item.Price</td>
-                <td class="text-right">@item.Sum</td>
-                <td class="text-right">
-                    <a class="btn btn-danger btn-xs" href="/ShopCart/RemoveFromCart/@item.ProductID">
-                        <i class="glyphicon glyphicon-trash"></i>
-                    </a>
-                </td>
+                <th class="text-right">#</th>
+                <th class="text-right">تصویر</th>
+                <th class="text-right">کالا</th>
+                <th class="text-right">تعداد</th>
+                <th class="text-right">قیمت</th>
+                <th class="text-right">جمع</th>
+                <th class="text-right">دستورات</th>
             </tr>
 
-            row++;
-        }
-        <tr>
-            <td colspan="3" class="text-right">
-                جمع تعداد :
-            </td>
-            <td>
-                @Model.Sum(p => p.Count)
-            </td>
-            <td class="text-right">
-                جمع فاکتور :
-            </td>
-            <td colspan="2" class="text-center">
-                <p class="">@Model.Sum(p => p.Sum).ToString("#,0 تومان")</p>
-            </td>
-        </tr>
-    </table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-right">@row</td>
+                    <td class="text-right">
+                        <img class="thumbnail" style="max-width: 120px" src="/ProductImages/@item.ImageName" />
+                    </td>
+                    <td class="text-right">@item.Title</td>
+                    <td class="text-right">@item.Count</td>
+                    <td class="text-right">@item.Price</td>
+                    <td class="text-right">@item.Sum</td>
+                    <td class="text-right">
+                        <a class="btn btn-danger btn-xs" href="/ShopCart/RemoveFromCart/@item.ProductID">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+
+                row++;
+            }
+            <tr>
+                <td colspan="3" class="text-right">
+                    جمع تعداد :
+                </td>
+                <td>
+                    @Model.Sum(p => p.Count)
+                </td>
+                <td class="text-right">
+                    جمع فاکتور :
+                </td>
+                <td colspan="2" class="text-center">
+                    <p class="">@Model.Sum(p => p.Sum).ToString("#,0 تومان")</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+    <script>
+
+        $(function () {
+            $("#grid").kendoGrid();
+        });
+
+    </script>*@
+
+<div class="custom-sum">
+    <div class="m-b-10">
+        <span> جمع تعداد :</span>
+        <span>@Model.Sum(p => p.Count) عدد</span>
+    </div>
+    <div >
+        <span>جمع فاکتور :</span>
+        <span>@Model.Sum(p => p.Sum).ToString("#,0 تومان")</span>
+    </div>
 </div>
 
 
-
-<script>
-
-    $(function () {
-        $("#grid").kendoGrid();
-    });
-
-</script>

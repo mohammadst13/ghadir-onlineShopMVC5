@@ -13,6 +13,7 @@ namespace ghadir.Controllers
         // GET: ShopCart
         public ActionResult Index()
         {
+
             List<ShopCartViewModel> list = new List<ShopCartViewModel>();
 
             if (Session["ShopCart"] != null)
@@ -35,6 +36,30 @@ namespace ghadir.Controllers
             }
 
             return View(list);
+        }
+        public JsonResult GetProducts()
+        {
+            List<ShopCartViewModel> list = new List<ShopCartViewModel>();
+
+            if (Session["ShopCart"] != null)
+            {
+                List<ShopCartItem> cart = Session["ShopCart"] as List<ShopCartItem>;
+                foreach (var shopCartItem in cart)
+                {
+                    var product = db.Products.Find(shopCartItem.ProductID);
+                    list.Add(new ShopCartViewModel()
+                    {
+                        ProductID = shopCartItem.ProductID,
+                        Count = shopCartItem.Count,
+                        Title = product.ProductTitle,
+                        Price = product.Price,
+                        Sum = shopCartItem.Count * product.Price,
+                        ImageName = product.ImageName
+
+                    });
+                }
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         public int AddToCart(int id)
