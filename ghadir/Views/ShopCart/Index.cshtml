@@ -8,59 +8,7 @@
 
 <div id="grid"></div>
 
-<script type="text/javascript">
-    $(function () {
-        var productsDataSource = new kendo.data.DataSource({
-            transport: {
-                read: {
-                    url: "ShopCart/GetProducts",
-                    dataType: "json",
-                    contentType: 'application/json; charset=utf-8',
-                    type: 'GET'
-                },
-                parameterMap: function (options) {
-                    return kendo.stringify(options);
-                }
-            },
-            schema: {
-                "ProductID": { type: "number" },
-                "Title": { type: "string" },
-                "Count": { type: "number" },
-                "Price": { type: "number" },
-                "Sum": { type: "number" },
-                "ImageName": { type: "string" }
-
-            },
-            error: function (e) {
-                alert(e.errorThrown);
-            },
-            pageSize: 10,
-            sort: { field: "Id", dir: "desc" },
-            serverPaging: true,
-            serverFiltering: true,
-            serverSorting: true
-        });
-
-        $("#grid").kendoGrid({
-            dataSource: productsDataSource,
-            autoBind: true,
-            scrollable: false,
-            pageable: true,
-            sortable: true,
-            filterable: true,
-            reorderable: true,
-            columnMenu: true,
-            columns: [
-                { field: "ProductID", title: "شماره", width: "50px" },
-                { field: "Title", title: "نام محصول", width: "150px" },
-                { field: "Count", title: "تعداد" },
-                { field: "Price", title: "قیمت واحد", format: "{0:c}" },
-                { field: "Sum", title: "قیمت کل", format: "{0:c}" },
-                { field: "ImageName", title: "نام عکس", template: '<img class="thumbnail" style="max-width: 120px" src="/ProductImages/#=ImageName#" />' }
-            ]
-        });
-    });
-</script>
+<script type="text/javascript" src="~/appScriptsJS/app.js"></script>
 
 <style>
     .k-link {
